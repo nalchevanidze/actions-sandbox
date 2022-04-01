@@ -6,13 +6,11 @@ on:
 
 jobs:
   publish-releases:
-    if: |
-      github.event.label.name == 'pr/release' 
-      && github.event.pull_request.merged == true
+    if: ${{ github.event.label.name == 'pr/release' && github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Publish Release
         run: |
-          echo "${{ github.event.label.name }}"
+          echo "${{ github.ref == 'refs/heads/main' }}"
           echo "${{ github.event.pull_request.merged }}"
