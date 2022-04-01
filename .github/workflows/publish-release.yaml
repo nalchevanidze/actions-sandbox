@@ -1,22 +1,14 @@
 name: Publish Release
 
-on: pull_request
+on: 
+  pull_request: 
+    types: [closed]
 
 jobs:
   publish-releases:
-    if: ${{ github.event.label.name == 'pr/release'}} && ${{ github.event.pull_request.merged == false }}
+    if: ${{ github.event.label.name == 'pr/release' && github.event.pull_request.merged == false }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Publish Release
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { owner, repo } = context.repo
-            github.rest.repos.listReleases({
-              owner,
-              repo
-            }).then( ({ data }) => {
-                  const { id } = data.find((r) => r.draft)
-                  return github.rest.repos.updateRelease({owner, repo, release_id: id, draft: false})
-              })
+        run: echo "TEST"
