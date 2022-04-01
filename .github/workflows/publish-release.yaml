@@ -9,9 +9,10 @@ jobs:
     if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
     steps:
-      - name: isRelease
+      - name: INIT
         if: ${{ github.event.label.name == 'pr/release' }}
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
+
       - name: Publish Release
         run: |
           echo "${{ github.ref == 'release/*' }}"
