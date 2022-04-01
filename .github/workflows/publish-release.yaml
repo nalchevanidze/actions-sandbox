@@ -10,12 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: INIT
-        if: ${{ github.base_ref == 'refs/heads/release/*'  }}
+        if: ${{ github.head_ref == 'refs/heads/release/*'  }}
         uses: actions/checkout@v2
 
+      - name: MERGED
+        if: ${{ github.head_ref == 'refs/heads/release/*' && github.event.pull_request.merged == true  }}
+        uses: actions/checkout@v2
+
+
+      - name: NOT_RELEADSE
+        if: ${{ github.head_ref != 'refs/heads/release/*' && github.event.pull_request.merged == true  }}
+        uses: actions/checkout@v2
+        
       - name: Publish Release
         run: |
           echo "${{ github.base_ref }}"
-          echo "${{ github.ref }}"
           echo "${{ github.head_ref }}" 
           echo "${{ github.event.pull_request.merged }}"
