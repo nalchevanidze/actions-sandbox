@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish-releases:
-    if: ${{ github.event.label.name == 'pr/release' && github.event.pull_request.merged == false }}
+    if: ${{ github.event.label.name == 'pr/release' }} && ${{ github.event.pull_request.merged == false }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
