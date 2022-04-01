@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: INIT
-        if: ${{ github.event.label.name == 'pr/release' }}
+        if: ${{ github.ref == 'refs/heads/release/*'  }}
         uses: actions/checkout@v2
 
       - name: Publish Release
         run: |
-          echo "${{ github.ref == 'release/*' }}"
+          echo "${{ github.ref }}"
           echo "${{ github.event.pull_request.merged }}"
