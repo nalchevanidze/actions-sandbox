@@ -6,22 +6,10 @@ on:
 
 jobs:
   publish-releases:
-    if: ${{ github.event.pull_request.merged == true }}
+    if: ${{ github.base_ref == 'main' && startsWith(github.head_ref, 'publish-release/') && github.event.pull_request.merged == true  }}
     runs-on: ubuntu-latest
     steps:
-      - name: INIT
-        if: ${{ startsWith(github.head_ref, 'publish-release/')  }}
-        uses: actions/checkout@v2
-
-      - name: MERGED
-        if: ${{ startsWith(github.head_ref, 'publish-release/') && github.event.pull_request.merged == true  }}
-        uses: actions/checkout@v2
-
-
-      - name: NOT_RELEADSE
-        if: ${{ github.base_ref == 'main' && startsWith(github.head_ref, 'publish-release/') && github.event.pull_request.merged == true  }}
-        uses: actions/checkout@v2
-        
+      - uses: actions/checkout@v2
       - name: Publish Release
         run: |
           echo "${{ github.base_ref }}"
