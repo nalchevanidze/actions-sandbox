@@ -13,5 +13,6 @@ jobs:
       - name: Publish Release
         run: |
           echo "${{ github.base_ref }}"
-          echo "${{ github.head_ref }}" 
+          echo "${{ github.head_ref }}"
+          echo "${{ github.event.pull_request.body }}"
           echo "${{ github.event.pull_request.merged }}"
